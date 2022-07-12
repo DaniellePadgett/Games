@@ -1,7 +1,43 @@
 ﻿@page "/rockpaperscissors"
 @using Models
 
-<h3>RockPaperScissors</h3>
+
+<div class="container h-100">
+	<div class="row justify-content-md-center">
+		<h1 id="game-title">Rock, paper, scissors</h1>
+	</div>
+	<div class="row justify-content-md-center game-area">
+		@switch(State)
+		{
+			case GameState.MakeChoice:
+			{
+				<StageChooseTurn OnClickChoice="OnClickChoice"/>
+				break;
+			}
+			case GameState.WaitForResult:
+			{
+				<StageWaitingForResult />
+				break;
+			}
+			case GameState.Result:
+			{
+				<StageResult Player1Choice="PlayerChoice.Value" Player2Choice="OpponentChoice.Value" WinningPlayerId="WinningPlayerId" NewRound="StartNewGame"/>
+				break;
+			}    
+		}
+	</div>
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-4 text-center">
+			<PlayerName Name="You" />
+		</div>
+		<div class="col col-md-2 text-center my-auto">
+
+		</div>
+		<div class="col col-lg-4 text-center">
+			<PlayerName Name="Opponent" />
+		</div>
+	</div>
+</div>
 
 @code {
 	    const int TimeToWait = 3;
